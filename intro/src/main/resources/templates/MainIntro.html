@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org" 
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:include="layout/BaseSetting::head">
+</head>
+<body class="container-fluid">
+		
+		<div th:include="layout/header-menu::header-menu" id="header-menu"></div>
+		<div th:include="layout/header::header" id="header"></div>
+		<div layout:fragment="content" id="content">
+		<div th:include="layout/introPopup::popup" class="div-box-grid"></div>
+			<div class="div-box-cover-top">
+
+				<div class="div-box-cover" >
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image1.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image2.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image3.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+			   </div>
+	
+				<div class="div-box-cover" >
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image1.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image1.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image1.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+			   </div>
+			   
+			   
+			   	<div class="div-box-cover" >
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image1.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/back-image.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image4.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+			   </div>
+			   
+			   
+			   	<div class="div-box-cover" >
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/headerImg.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image2.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+					<div class="div-box">
+						<div class="div-box-item-main">
+							<img th:src="@{/img/image4.jpg}" style="width:100%;height:100%;" alt="그림">
+						</div>
+						
+						<div class="div-box-item-sub">
+							<h2> test1 </h2>
+							<p>테스트입니다. </p>
+						</div>
+					</div>
+			   </div>
+		   </div>
+
+		</div>
+		<div th:include="layout/footer::footer" id="footer"></div>
+		<div th:include="layout/sidebar::sidebar" id="sidebar"></div>
+	
+	<th:block layout:fragment="css">
+	<link th:href="@{css/slide.css?version=1}"  rel="stylesheet" type="text/css">
+		<style type="text/css">
+		.div-box-cover{
+		width:100%;
+		text-align: center;
+		height:400px;
+		}
+		.div-box-cover-top{
+		position: relative;
+		width:100%;
+		height:100%;
+		}
+		.div-box{
+		transition: all ease 1s;
+		width:400px;
+		height:350px;
+		display: inline-block;
+		margin : 2%;
+		font-family: 'Poppins', sans-serif;
+		}
+		.slideBtn{
+			top:650px;
+		}
+		.div-box:hover{
+		border: 1px solid #ddd;
+		}
+		#header{
+		height: 700px;
+		}
+		.div-box:hover .div-box-item-main{
+			transition : all .5s ease-in;
+			transform : rotateY(180deg)
+		}
+		
+		.div-box-item-main{
+		
+		margin-top : 3%;
+		display: inline-block;
+		width:360px;
+		height:200px;
+		}
+		.div-box-item-sub{
+		margin-top : 2%;
+		display: inline-block;
+		width:360px;
+		height:100px;
+		}
+		.div-box-grid{
+		color:white;
+		width:100%;
+		height: 100%;
+		/* background-color: rgba(0,0,0,0.9); */
+		position: fixed;
+		display : none;
+		text-align: center;
+		z-index : 999;
+		top : 0;
+		/* margin: 7% 10% 10% 10%; */
+		/* background-image: url( "./img/back-image.jpg" ); */
+		background-position: center;
+		background-size: 100% 100% ;
+		}
+		
+		</style>
+	</th:block>
+	<th:block layout:fragment="script">
+	 <th:block th:include="layout/BaseSetting::script"></th:block>
+	 <script th:src="@{js/slide.js}" type="text/javascript"></script>
+	 
+		<script type="text/javascript" th:inline="javascript">
+		
+	/* 	$(function(){
+ 		var count = 0;
+			setInterval(function(){
+				
+				if(count === $('.header-slide').length-1){
+					console.log('들어옴 : '+count)
+					$('#header-slide-1').animate({
+						left : "100%"
+					},3000)
+					$('#header-slide-2').animate({
+						left : "100%"
+					},3000)
+					$('#header-slide-3').animate({
+						left : "100%"
+					},3000)
+					count =0;
+
+ 					$('#header-slide-'+count).animate({
+						left : 0
+					},3000,function(){
+						$('#header-slide-1').css('display','none');
+						$('#header-slide-2').css('display','none');
+						$('#header-slide-3').css('display','none');
+					
+					})
+				}
+				else{
+					console.log("else count: "+count)
+					slide(count);
+					count ++;
+				}
+			},3000);
+
+		});	 */
+		
+		$(function(){
+
+			
+				$('.div-box').click(function(){
+					$('.div-box-grid').slideDown();
+				})
+				
+			});	
+		
+		$('.div-box').mouseover(function(){
+			console.log('들어옴')
+		})
+		
+		$('.div-box').mouseout(function(){
+			console.log('들어옴')
+		})
+		
+		
+		
+		
+		
+		
+		
+			$("#popup-cancle-btn").click(function(){
+				$('.div-box-grid').slideUp();
+			})
+			$('.div-box-grid').click(function(e){
+				if(e.target.className === "popup-cover" || e.target.className === "div-box-grid"){
+					$('.div-box-grid').slideUp();
+				}
+				
+			})
+			function test(count){
+				alert('count : '+count)
+			}
+		</script>
+	</th:block>
+</body>
+</html>

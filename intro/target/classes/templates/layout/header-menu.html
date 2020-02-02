@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org" 
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet">
+	
+</head>
+<header th:fragment="header-menu" >
+
+	<div id="header-menu-sub">
+	<div class="header-logo-cover">
+		<div id="Logo" data-no="0">MAVIN</div>
+	</div>
+		<div class="header-menu-item-cover">
+			<div class="header-menu-item" id="profile" data-no="1">PHOTOPOLIO</div>
+			<div class="header-menu-item" id="blog" data-no="2">BLOG</div>
+			<div class="header-menu-item" id="notice" data-no="3">NOTICE</div>
+			<div class="header-menu-item" id="calendar" data-no="4">CALENDAR</div>
+			<div class="header-menu-item" id="setting"data-no="5"> CONTEXT</div>
+		</div>
+		<div class="header-menu-icon-cover">
+			<div class="header-menu-icon" id="login" data-no="6"> <i class="fas fa-sign-in-alt fa-lg"></i></div> 
+			<div class="header-menu-icon-none">I</div> 
+			<div class="header-menu-icon" id="search"> <i class="fa fa-search fa-lg"></i></div> 
+		</div>
+		<div class="header-menu-search-popup-cover">
+			<div class="header-menu-search-popup">
+			<div class="header-menu-search-popup-title">검색어를 입력해 주세요.</div>
+			<i class="fa fa-times pull-right fa-lg" id="search-popup-cancle-btn" aria-hidden="true"></i>
+				<input type="text" id="search-popup">
+			</div>
+		</div>
+		<!-- <span class="header-menu-item2" id="etcMenu2">&equiv;</span> -->
+		<!-- <img th:src="@{img/setting-color-icon.png}" style="width:1.3em;height:1.3em;color : white"> -->
+	</div>	<!-- 
+	<div style="width:100%;height:100px;background-color: rgba(0,0,0,0.9);border:1px solid #ddd"></div> -->
+<th:block layout:fragment="css">
+		<style>
+		#header-menu{
+			font-size: 1em;
+			font-weight: bold;
+			color: #ddd;
+			width:100%;
+			top : 0;
+			height: 10rem;
+			font-family: 'Poppins', sans-serif;
+			 background-color:rgba(230,30,10,0.8);
+			position: sticky;
+			z-index: 100;
+		}
+		#header-menu-sub{
+			height:10rem;
+			width:100%;
+		}
+
+		.header-logo-cover{
+			width : 15%;
+			height : 100%;
+			display: inline-block;
+			text-align: center;
+			padding : 3rem 0 0 3rem;
+		}
+		.header-menu-item-cover{
+			padding: 0 5%;
+			width : 68%;
+			height : 100%;
+			display: inline-block;
+			text-align: center;
+			
+		}
+		.header-menu-icon-cover{
+		width : 15%;
+		height : 100%;
+		display: inline-block;
+		padding: 4rem 0 0 7%;
+		}
+		
+		#Logo{
+			float : left;
+			width:10%;
+			font-family: Slovic;
+			font-size: 2em;
+			color:#ccc;
+		}
+		#Logo:hover{
+			color: #FFCC00;
+			cursor: pointer;
+		}
+
+		.header-menu-item{
+		
+			width:20%;
+			height:100%;
+			float: left;
+			padding-top:4rem;
+		}
+		.header-menu-item:hover{
+			color: #FFCC00;
+			cursor: pointer;
+			border-top: 3px solid rgba(0,0,0,0.8);
+			border-bottom: 3px solid #FFCC00;
+		}
+		.header-menu-icon-none{
+		width: 10%;
+		display: inline-block;
+		float: left;
+		}
+		#searchText{
+			float: left;
+    		width: 60%;
+    		border-radius: 5px;
+		}
+		
+		.header-menu-icon{
+			width:2em;
+			display: inline-block;
+			    float: left;
+		}
+		#search:hover,#login:hover{
+			color: #FFCC00;
+			cursor: pointer;
+		}
+
+		.header-menu-search-popup-cover{
+		width: 100%;
+		height: 20rem;
+		background-color: rgba(0,0,0,0.9);
+		position: absolute;
+		top : 0;
+		z-index: 101;
+		display: none;
+		}
+
+		.header-menu-search-popup{
+				width: 100%;
+		height: 20rem;
+		}
+		#search-popup{
+		width:50%;
+		height:4rem;
+		border-top : 0;
+		border-left : 0;
+		border-right : 0;
+		border-bottom : 2px solid white;
+		font-size : 2em;
+		color : white;
+		background-color: rgba(0,0,0,0);
+		outline: none;
+		margin: 0% 0 0 27%;
+		}
+
+		#search-popup-cancle-btn{
+		color : white;
+		width : 30px;
+		height : 30px;
+		font-size : 2rem;
+		margin : 1% 1% 0 0;
+		}
+		.header-menu-search-popup-title{
+		display: inline-block;
+		margin: 6% 0 0 27%;
+		
+		}
+
+
+
+
+
+
+			@media (min-width: 1200px) and (max-width: 1300px) {
+	 		
+		
+	 	}
+		@media (max-width: 1100px){
+			body{
+				min-width: 150%;
+				overflow  :auto;
+			}
+		}
+		.header-menu-icon-cover {
+		    padding: 4rem 0 0 0;
+		}
+		
+		#signUp{
+		
+		}
+		 @media (min-width: 300px) and (max-width: 500px) {
+			 #header-menu-sub{
+			 	margin-left : 0;
+			 	font-size: 0.7em;
+			 }
+		 }
+		</style>
+
+
+</header>
+</html>

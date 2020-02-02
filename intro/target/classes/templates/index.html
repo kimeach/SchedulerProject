@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org" 
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:include="layout/BaseSetting::head">
+</head>
+<body class="container-fluid">
+	<div th:include="layout/header-menu::header-menu" id="header-menu"></div>
+	<div th:include="layout/header::header" id="header"></div>
+	<div layout:fragment="content" id="content">
+		<div class="schedule-cover" style="width:80%;margin:0 0 0 10%">
+			<table border=1 style="width:100%" class="schedule-table">
+				<tr class="schedule-title">
+					<td class="schedule-title-td">일</td>
+					<td class="schedule-title-td">월</td>
+					<td class="schedule-title-td">화</td>
+					<td class="schedule-title-td">수</td>
+					<td class="schedule-title-td">목</td>
+					<td class="schedule-title-td">금</td>
+					<td class="schedule-title-td">토</td>
+				</tr>
+				
+			
+			
+			
+			</table>
+		</div>
+	</div>
+	<div th:include="layout/footer::footer" id="footer"></div>
+	<div th:include="layout/sidebar::sidebar" id="sidebar"></div>
+	<th:block layout:fragment="css">
+		<style type="text/css">
+			.schedule-cover{
+			width:100%;
+			height: 700px;
+			border : 1px solid red;		
+			}
+			
+			.schedule-title{
+			width: 100%;
+			height: 100px;
+			
+			}
+			.schedule-title-td{
+			width:14.2%;
+			text-align: center;
+			}
+			.schedule-tr{
+			width:100%;
+			height:100px;
+			}
+			
+			.schedule-td{
+			height : 100px;
+			padding : 0px;
+			margin : 0px;
+			top : 0;
+			}
+			.schedule-td-div{
+			height:100%;
+			}
+		
+		</style>
+	</th:block>
+	<th:block layout:fragment="script">
+	 <th:block th:include="layout/BaseSetting::script"></th:block>
+	 
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				var query = "<tr class='schedule-tr'>";
+				for(var i = 0;i<=31;i++){
+					if(i%7===0 && i != 0){
+						query +="</tr>"
+						query += "<tr class='schedule-tr'>";
+					}
+					else{
+					}
+					if(i === 0){
+						query += "<td class='schedule-td'> </td>"
+					}
+					else{
+						query += "<td class='schedule-td'> <div class='schedule-td-div'><span>"+i+"</span> "
+						+"<div style='width:100%'> <textarea sttle='width:100%;height:100%;padding:0;margin:0'></textarea> </div>"
+						+"</div> </td>"
+					}
+				}
+				query +="</tr>"
+				
+				$('.schedule-table').append(query);
+				
+			});	
+		</script>
+	</th:block>
+</body>
+</html>

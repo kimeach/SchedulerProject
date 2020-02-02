@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org" 
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:include="layout/BaseSetting::head">
+</head>
+<body class="container-fluid">
+	<div th:include="layout/header-menu::header-menu" id="header-menu"></div>
+	<div th:include="layout/header::header" id="header"></div>
+	<div layout:fragment="content" id="content">
+		
+	</div>
+	<div th:include="layout/footer::footer" id="footer"></div>
+	<div th:include="layout/sidebar::sidebar" id="sidebar"></div>
+	<th:block layout:fragment="css">
+		<style type="text/css">
+		
+		
+		</style>
+	</th:block>
+	<th:block layout:fragment="script">
+	 <th:block th:include="layout/BaseSetting::script"></th:block>
+	 
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				
+				
+			});	
+		</script>
+	</th:block>
+</body>
+</html>

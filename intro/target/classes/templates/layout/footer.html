@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org" 
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<footer th:fragment="footer">
+	<div style="text-align: center;height:100%;">
+		<span class="footer-item"> Author : Kim Gi Moon </span>
+		<span class="footer-item"> Phone : 010-7657-5746 </span>
+		<span class="footer-item"> Email : kimeach@naver.com </span>
+	</div>
+
+<th:block layout:fragment="css">
+<style>
+.footer-item{
+clear : both;
+color : white;
+width : 15%;
+display : inline-block;
+height: 100%;
+}
+@media (min-width: 300px) and (max-width: 500px) {
+ .footer-item{
+}
+ 
+ }
+</style>
+</th:block>
+</footer>
+</html>
