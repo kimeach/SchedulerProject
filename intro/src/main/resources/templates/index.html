@@ -8,22 +8,27 @@
 	<div th:include="layout/header-menu::header-menu" id="header-menu"></div>
 	<div th:include="layout/header::header" id="header"></div>
 	<div layout:fragment="content" id="content">
-		<div class="schedule-cover" style="width:80%;margin:0 0 0 10%">
-			<table border=1 style="width:100%" class="schedule-table">
+		
+		<div class="schedule-cover">
+		<div style="width:50%;text-align: center;">
+		
+			<h4> <select id="selectYear"></select> 년 <select id="selectMonth" onchange="Calendar(id)"></select> 월</h4>
+		</div>
+			<table border=1  style="width:50%;height:50%;float:left;border:1px solid #ddd" class="schedule-table">
 				<tr class="schedule-title">
-					<td class="schedule-title-td">일</td>
-					<td class="schedule-title-td">월</td>
-					<td class="schedule-title-td">화</td>
-					<td class="schedule-title-td">수</td>
-					<td class="schedule-title-td">목</td>
-					<td class="schedule-title-td">금</td>
-					<td class="schedule-title-td">토</td>
+					<td class="schedule-title-td" id="sunday" data-start="0">일</td>
+					<td class="schedule-title-td" id="monday" data-start="1">월</td>
+					<td class="schedule-title-td" id="tuesday" data-start="2">화</td>
+					<td class="schedule-title-td" id="wednedsday" data-start="3">수</td>
+					<td class="schedule-title-td" id="thursday" data-start="4">목</td>
+					<td class="schedule-title-td" id="friday" data-start="5">금</td>
+					<td class="schedule-title-td" id="saturday" data-start="6">토</td>
 				</tr>
-				
-			
-			
-			
 			</table>
+			<div style="width:2%;float:left">&nbsp;</div>
+			<div style="width:48%;height:100%;float:left">
+			<textarea style='width:100%;height:100%;padding:0;resize: none;'></textarea>
+			</div>
 		</div>
 	</div>
 	<div th:include="layout/footer::footer" id="footer"></div>
@@ -31,15 +36,17 @@
 	<th:block layout:fragment="css">
 		<style type="text/css">
 			.schedule-cover{
-			width:100%;
+			width:96%;
 			height: 700px;
-			border : 1px solid red;		
+			margin : 1% 0 0 2%;
 			}
 			
 			.schedule-title{
 			width: 100%;
-			height: 100px;
-			
+			height: 80px;
+			font-weight: bold;
+			background-color: rgba(100,110,250,0.7);
+			color: white;
 			}
 			.schedule-title-td{
 			width:14.2%;
@@ -66,29 +73,70 @@
 	 <th:block th:include="layout/BaseSetting::script"></th:block>
 	 
 		<script type="text/javascript" th:inline="javascript">
+		// 2000년 1월 1일 은 토요일
+		var start = "saturday";
+		var month = [31,28,31,30,31,30,31,31,30,31,30,31];
+		
+			
 			$(function(){
+				
+				var yearQuery = "";
+				var startNum = 0;
+				for(var i=2000;i<=2030;i++){
+					yearQuery += "<option value='"+i+"'>"+i+"</option>";
+				}
+				$('#selectYear').html(yearQuery);
+				
+				var monthQuery ="";
+				for(var i=1;i<=12;i++){
+				monthQuery += "<option value='"+i+"'>"+i+"</option>";
+				}
+				$('#selectMonth').html(monthQuery);
+					
+				
 				var query = "<tr class='schedule-tr'>";
-				for(var i = 0;i<=31;i++){
+				for(var i = 0;i<42;i++){
 					if(i%7===0 && i != 0){
 						query +="</tr>"
 						query += "<tr class='schedule-tr'>";
 					}
-					else{
-					}
-					if(i === 0){
-						query += "<td class='schedule-td'> </td>"
-					}
-					else{
-						query += "<td class='schedule-td'> <div class='schedule-td-div'><span>"+i+"</span> "
-						+"<div style='width:100%'> <textarea sttle='width:100%;height:100%;padding:0;margin:0'></textarea> </div>"
-						+"</div> </td>"
-					}
+						query += "<td class='schedule-td' data-role='"+i+"'>"
+									+"<div class='schedule-td-div' style='text-align: center'>"
+										+"<span style='text-align:left;'> </span> "
+									+"</div>"
+								+"</td>"
 				}
 				query +="</tr>"
 				
 				$('.schedule-table').append(query);
 				
+				Calendar();
+				
 			});	
+			
+			function Calendar(id){
+				console.log("id : "+$("#"+id).val());
+				idValue = parseInt($("#"+id).val())-1;
+				
+				for(var i =0;i<$('.schedule-title-td').length;i++){ // $('.schedule-title-td').length 만큼 반복
+					if($('.schedule-title-td').eq(i).attr('id') === start){ //$('.schedule-title-td').eq(i).attr('id') 가 saturday일 때 true
+						console.log('같다 : '+$('.schedule-title-td').eq(i).attr('id'));
+						for(j = 0;j<$('.schedule-td').length;j++){ // $('.schedule-td').length 의 갯수만큼 반복
+							//schedule-title-td (월,화,수,목,금,토,일) 의 attr 의 값과 $('.schedule-td').attr('data-role') 의 값이 일치할때
+							if($('.schedule-title-td').eq(i).attr('data-start') === $('.schedule-td').eq(j).attr('data-role')){
+								startNum = j; // 같은 값의 위치를 저장
+								//$('.schedule-td').eq(j).text("1");
+							}
+						}
+					}
+				}
+				console.log("idValue 의 값 : "+idValue);
+				console.log("month[idValue] : "+month[idValue])
+				for(var a=1;a<=month[idValue];a++){ // 
+					
+					$('.schedule-td').eq(startNum++).html(a);
+				}
+			}
 		</script>
 	</th:block>
 </body>
