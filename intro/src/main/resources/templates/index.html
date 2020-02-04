@@ -10,21 +10,28 @@
 	<div layout:fragment="content" id="content">
 		
 		<div class="schedule-cover">
-		<div style="width:50%;text-align: center;">
-		
-			<h4> <select id="selectYear"></select> 년 <select id="selectMonth" onchange="Calendar(id)"></select> 월</h4>
-		</div>
-			<table border=1  style="width:50%;height:50%;float:left;border:1px solid #ddd" class="schedule-table">
+
+		<div class="schedule-table-cover">
+			<div style="width:100%;text-align: center;padding-top:2%">
+				<h3> 
+					<span onclick="prevMonth()" id="prevBtn"> < </span>
+					<span id="selectMonth" style="margin-right:3%"></span> 
+					<span id="selectYear"></span> 
+					<span onclick="nextMonth()" id="nextBtn"> > </span>
+				</h3>
+			</div>
+			<table class="schedule-table">
 				<tr class="schedule-title">
-					<td class="schedule-title-td" id="sunday" data-start="0">일</td>
-					<td class="schedule-title-td" id="monday" data-start="1">월</td>
-					<td class="schedule-title-td" id="tuesday" data-start="2">화</td>
-					<td class="schedule-title-td" id="wednedsday" data-start="3">수</td>
-					<td class="schedule-title-td" id="thursday" data-start="4">목</td>
-					<td class="schedule-title-td" id="friday" data-start="5">금</td>
-					<td class="schedule-title-td" id="saturday" data-start="6">토</td>
+					<td class="schedule-title-td" id="sunday" data-start="7">Sun</td>
+					<td class="schedule-title-td" id="monday" data-start="1">Mon</td>
+					<td class="schedule-title-td" id="tuesday" data-start="2">Tue</td>
+					<td class="schedule-title-td" id="wednedsday" data-start="3">Wed</td>
+					<td class="schedule-title-td" id="thursday" data-start="4">Thu</td>
+					<td class="schedule-title-td" id="friday" data-start="5">Fri</td>
+					<td class="schedule-title-td" id="saturday" data-start="6">Sat</td>
 				</tr>
 			</table>
+		</div>
 			<div style="width:2%;float:left">&nbsp;</div>
 			<div style="width:48%;height:100%;float:left">
 			<textarea style='width:100%;height:100%;padding:0;resize: none;'></textarea>
@@ -35,6 +42,21 @@
 	<div th:include="layout/sidebar::sidebar" id="sidebar"></div>
 	<th:block layout:fragment="css">
 		<style type="text/css">
+			.schedule-table{
+			text-align : center;
+			width:100%;
+			height:100%;
+
+			}
+			.schedule-table-cover{
+			width:50%;
+			height:100%;
+			float:left;
+			background-color: rgba(200,50,50,1);
+			color: white;
+			border-radius: 5px;
+			}
+		
 			.schedule-cover{
 			width:96%;
 			height: 700px;
@@ -45,8 +67,8 @@
 			width: 100%;
 			height: 80px;
 			font-weight: bold;
-			background-color: rgba(100,110,250,0.7);
-			color: white;
+			/* background-color: rgba(100,110,250,0.7); */
+			
 			}
 			.schedule-title-td{
 			width:14.2%;
@@ -66,7 +88,15 @@
 			.schedule-td-div{
 			height:100%;
 			}
-		
+		#prevBtn{
+		float:left;margin-left:5%;
+		}
+		#nextBtn{
+		float:right;margin-right:5%;
+		}	
+		#prevBtn , #nextBtn{
+			cursor: pointer;
+		}
 		</style>
 	</th:block>
 	<th:block layout:fragment="script">
@@ -74,25 +104,22 @@
 	 
 		<script type="text/javascript" th:inline="javascript">
 		// 2000년 1월 1일 은 토요일
-		var start = "saturday";
-		var month = [31,28,31,30,31,30,31,31,30,31,30,31];
+		var constMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+		var monthVal = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."];
+		var dayVal = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 		
-			
+		var date = new Date(); //
+		var getYear = date.getUTCFullYear(); //년
+		var getMonth = date.getMonth(); //월
+		var getDate = date.getDate(); //일
+		var getDay = date.getDay() // 요일을 숫자로 나타냄
+		var num = 0;
 			$(function(){
 				
-				var yearQuery = "";
 				var startNum = 0;
-				for(var i=2000;i<=2030;i++){
-					yearQuery += "<option value='"+i+"'>"+i+"</option>";
-				}
-				$('#selectYear').html(yearQuery);
+				$('#selectYear').html(getYear);
+				$('#selectMonth').html(monthVal[getMonth]);
 				
-				var monthQuery ="";
-				for(var i=1;i<=12;i++){
-				monthQuery += "<option value='"+i+"'>"+i+"</option>";
-				}
-				$('#selectMonth').html(monthQuery);
-					
 				
 				var query = "<tr class='schedule-tr'>";
 				for(var i = 0;i<42;i++){
@@ -109,32 +136,38 @@
 				query +="</tr>"
 				
 				$('.schedule-table').append(query);
-				
-				Calendar();
-				
+				Calendar();	
 			});	
 			
-			function Calendar(id){
-				console.log("id : "+$("#"+id).val());
-				idValue = parseInt($("#"+id).val())-1;
-				
-				for(var i =0;i<$('.schedule-title-td').length;i++){ // $('.schedule-title-td').length 만큼 반복
-					if($('.schedule-title-td').eq(i).attr('id') === start){ //$('.schedule-title-td').eq(i).attr('id') 가 saturday일 때 true
-						console.log('같다 : '+$('.schedule-title-td').eq(i).attr('id'));
-						for(j = 0;j<$('.schedule-td').length;j++){ // $('.schedule-td').length 의 갯수만큼 반복
-							//schedule-title-td (월,화,수,목,금,토,일) 의 attr 의 값과 $('.schedule-td').attr('data-role') 의 값이 일치할때
-							if($('.schedule-title-td').eq(i).attr('data-start') === $('.schedule-td').eq(j).attr('data-role')){
-								startNum = j; // 같은 값의 위치를 저장
-								//$('.schedule-td').eq(j).text("1");
-							}
+			function Calendar(){
+				console.log("calendar 들어옴")
+				console.log("getDay : "+getDay);
+				for(var i = 0;i<$('.schedule-td').length;i++){
+					if(parseInt(getDay) === parseInt($('.schedule-td').eq(i).attr('data-role'))){
+						for(var j = 1;j<constMonth[i];j++){
+							$('.schedule-td').eq(i++).html(j);
 						}
+						
 					}
 				}
-				console.log("idValue 의 값 : "+idValue);
-				console.log("month[idValue] : "+month[idValue])
-				for(var a=1;a<=month[idValue];a++){ // 
+				
+			}
+			function prevMonth(){
+				
+				if(parseInt(getMonth+num) > 0){
+					num--
+					$('#selectMonth').html(monthVal[getMonth+num]);
+					console.log("이전 : "+parseInt(getMonth+num))
+				}
+				else if(parseInt(month+num) === 0) {
 					
-					$('.schedule-td').eq(startNum++).html(a);
+				}
+			}
+			function nextMonth(){
+				if(parseInt(getMonth+num) >= 0){
+					num++
+					$('#selectMonth').html(monthVal[getMonth+num]);
+					console.log("다음 : "+parseInt(getMonth+num))
 				}
 			}
 		</script>
