@@ -97,6 +97,12 @@
 		#prevBtn , #nextBtn{
 			cursor: pointer;
 		}
+		#schedule-nowDate{
+		background-color : rgba(220,130,90,0.8);
+		padding : 10%;
+		border-radius: 100%;
+		
+		}
 		</style>
 	</th:block>
 	<th:block layout:fragment="script">
@@ -116,6 +122,7 @@
 		var getDate = date.getDate(); //일
 		var getDay = date.getDay() // 요일을 숫자로 나타냄
 		var num = 0;
+		
 			$(function(){
 				
 				var startNum = 0;
@@ -140,6 +147,7 @@
 				$('.schedule-table').append(query);
 				Calendar(getYear,getMonth);	
 				
+					
 			});	
 			
 			function Calendar(getYear,getMonth){
@@ -168,7 +176,14 @@
 						}
 					}
 				}
-				
+				console.log("selectMonth : "+$('#selectMonth').text())
+				console.log("monthVal : "+monthVal[getMonth]);
+				for(var i = 0;i<$('.schedule-td').length;i++){
+					if(parseInt($('.schedule-td').eq(i).text()) === getDate && monthVal[getMonth] === $('#selectMonth').text()){
+						console.log("조건 true : " +i)
+						$('.schedule-td').eq(i).html("<div id='schedule-nowDate'>"+getDate+"</div>");
+					}
+				}
 			}
 			function prevMonth(){
 				$('.schedule-td').html("")
@@ -187,7 +202,7 @@
 					num--
 					$('#selectMonth').html(monthVal[getMonth+num]);
 					
-					alert("들어옴"+parseInt(getMonth+num))
+					console.log("이전 : "+parseInt(getMonth+num))
 					Calendar(parseInt(getYear),parseInt(getMonth+num));
 				}
 			}
