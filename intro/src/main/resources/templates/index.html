@@ -104,7 +104,9 @@
 	 
 		<script type="text/javascript" th:inline="javascript">
 		// 2000년 1월 1일 은 토요일
-		var constMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+		var constCommonMonth = [31,28,31,30,31,30,31,31,30,31,30,31]; //윤년 X
+		var constLeapMonth = [31,29,31,30,31,30,31,31,30,31,30,31]; //윤년 O
+		
 		var monthVal = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."];
 		var dayVal = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 		
@@ -136,39 +138,78 @@
 				query +="</tr>"
 				
 				$('.schedule-table').append(query);
-				Calendar();	
+				Calendar(getYear,getMonth);	
+				
 			});	
 			
-			function Calendar(){
+			function Calendar(getYear,getMonth){
+				
+				var calDate = new Date(getYear,getMonth,1);
+				var calYear = calDate.getUTCFullYear();
+				var calGetDay = calDate.getDay();
+				var calGetMonth = calDate.getMonth();
+				var calGetDate = calDate.getDate();
+				
 				console.log("calendar 들어옴")
-				console.log("getDay : "+getDay);
+				console.log("calGetDay : "+calGetDay);
+				console.log("calGetMonth : "+calGetMonth);
 				for(var i = 0;i<$('.schedule-td').length;i++){
-					if(parseInt(getDay) === parseInt($('.schedule-td').eq(i).attr('data-role'))){
-						for(var j = 1;j<constMonth[i];j++){
-							$('.schedule-td').eq(i++).html(j);
+					if(parseInt(calGetDay) === parseInt($('.schedule-td').eq(i).attr('data-role'))){
+						var countNum =i;
+						if(calYear%4===0){ // 윤년 o
+							for(var j = 1;j<=constLeapMonth[calGetMonth];j++){
+								$('.schedule-td').eq(countNum++).html(j);
+							}
 						}
-						
+						else{ // 윤년 x
+							for(var j = 1;j<=constCommonMonth[calGetMonth];j++){
+								$('.schedule-td').eq(countNum++).html(j);
+							}
+						}
 					}
 				}
 				
 			}
 			function prevMonth(){
-				
+				$('.schedule-td').html("")
+				$('#selectYear').html("")
 				if(parseInt(getMonth+num) > 0){
+					$('#selectYear').html(getYear);
 					num--
 					$('#selectMonth').html(monthVal[getMonth+num]);
 					console.log("이전 : "+parseInt(getMonth+num))
+					Calendar(parseInt(getYear),parseInt(getMonth+num));
+				
 				}
-				else if(parseInt(month+num) === 0) {
+				else if(parseInt(getMonth+num) === 0) {
+					$('#selectYear').html(--getYear);
+					num = 11;
+					num--
+					$('#selectMonth').html(monthVal[getMonth+num]);
 					
+					alert("들어옴"+parseInt(getMonth+num))
+					Calendar(parseInt(getYear),parseInt(getMonth+num));
 				}
 			}
 			function nextMonth(){
-				if(parseInt(getMonth+num) >= 0){
+				$('.schedule-td').html("")
+				$('#selectYear').html("")
+				if(parseInt(getMonth+num) >= 0 && parseInt(getMonth+num) <11){
+					$('#selectYear').html(getYear);
 					num++
 					$('#selectMonth').html(monthVal[getMonth+num]);
 					console.log("다음 : "+parseInt(getMonth+num))
+					Calendar(parseInt(getYear),parseInt(getMonth+num));
 				}
+				else if(parseInt(getMonth+num) >= 11){
+					$('#selectYear').html(++getYear);
+					num = -2;
+					num++
+					$('#selectMonth').html(monthVal[getMonth+num]);
+					console.log("다음 : "+parseInt(getMonth+num))
+					Calendar(parseInt(getYear),parseInt(getMonth+num));
+				}
+				
 			}
 		</script>
 	</th:block>
